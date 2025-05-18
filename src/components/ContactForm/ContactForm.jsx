@@ -44,7 +44,7 @@ const ContactForm = () => {
 };
 
 ContactForm.propTypes = {
-  // проптайпи здесь не обязательны, так как нет пропсов
+  
 };
 
 export default ContactForm;
