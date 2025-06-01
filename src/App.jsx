@@ -1,61 +1,81 @@
-import { useState } from 'react'
-import React from 'react'
-// import './App.css'
-import { useDispatch, useSelector } from 'react-redux'
-
+import React from 'react';
+import './App.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { addContact, delContact } from './redux/contactsSlice';
+import { setFilter } from './redux/filterSlice';
 
 function App() {
+  const contacts = useSelector(state => state.cont);
+  const filter = useSelector(state => state.fil);
+  const dispatch = useDispatch();
 
-  const contacts = useSelector(state=>state.cont)
-  const filter = useSelector(state=>state.fil)
+  const add = e => {
+    e.preventDefault();
+    dispatch(addContact({
+      name: e.target.elements.inputname.value,
+      number: e.target.elements.inputnumber.value
+    }));
+  };
 
-  const dispatch = useDispatch()
+  const del = e => {
+    e.preventDefault();
+    dispatch(delContact(e.target.elements.delID.value));
+  };
 
-  const add =e=> {
-    e.preventDefault()
-    dispatch({ type: 'addcontact', payload: {
-      name: e.target.elements.inputname.value,
-      number: e.target.elements.inputnumber.value
-    } })
-  }
+  const filt = e => {
+    dispatch(setFilter(e.target.value));
+  };
 
-  const del =e=> {
-    e.preventDefault()
-    dispatch({ type: 'delcontact', payload: e.target.elements.delID.value })
-  }
+  return (
+  <div className="container">
+    <h1>Contacts</h1>
 
-  const filt =e=> {
-    e.preventDefault()
-    dispatch({ type: 'setfilter', payload: e.target.value })
-  }
-
-
-  return (<>
     <form onSubmit={add}>
-      <input required type="text" name="inputname" id="input-name" placeholder='Name' />
-      <input required type="text" name="inputnumber" id="input-number" placeholder='Number (no letters)' pattern='^[^A-Za-z]*$' />
-      <button type='submit'>Add Contact</button>
+      <input
+        required
+        type="text"
+        name="inputname"
+        id="input-name"
+        placeholder="Name"
+      />
+      <input
+        required
+        type="text"
+        name="inputnumber"
+        id="input-number"
+        placeholder="Number (no letters)"
+        pattern="^[^A-Za-z]*$"
+      />
+      <button type="submit">Add Contact</button>
     </form>
+
     <form onSubmit={del}>
-      <input required name="delID" type="number" id="del-id" placeholder='ID' />
-      <button type='submit'>Delete Contact</button>
+      <input required name="delID" type="number" id="del-id" placeholder="ID" />
+      <button type="submit">Delete Contact</button>
     </form>
-    <input type="text" name="filter" id="filter" placeholder='Filter'
-      onInput={filt}/>
+
+    <input
+      type="text"
+      id="filter"
+      name="filter"
+      placeholder="Filter"
+      onInput={filt}
+    />
+
     <ul>
-      {contacts.filter(x=>x.name.includes(filter)).map((x,i)=>(
-        <li key={x.id}>
-          <p>
-            <span style={{fontSize:'0.5em'}}>#{x.id}</span>
-            &nbsp;
-            {x.name}:
-            &nbsp;
-            <code style={{fontStyle:'italic',color:'yellow'}}>{x.number}</code>
-          </p>
-        </li>
+      {contacts
+        .filter((x) => x.name.includes(filter))
+        .map((x) => (
+          <li key={x.id}>
+            <span className="id">#{x.id}</span>
+            {x.name}
+            <code>{x.number}</code>
+          </li>
         ))}
     </ul>
-  </>)
+  </div>
+);
+
 }
 
-export default App
+export default App;
