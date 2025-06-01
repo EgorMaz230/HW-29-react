@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/HW-29-react/static/css/main.b30d6352.chunk.css",
-    "main.js": "/HW-29-react/static/js/main.4e91b790.chunk.js",
-    "main.js.map": "/HW-29-react/static/js/main.4e91b790.chunk.js.map",
+    "main.css": "/HW-29-react/static/css/main.710878bc.chunk.css",
+    "main.js": "/HW-29-react/static/js/main.1bf1e8d7.chunk.js",
+    "main.js.map": "/HW-29-react/static/js/main.1bf1e8d7.chunk.js.map",
     "runtime~main.js": "/HW-29-react/static/js/runtime~main.11c54ce5.js",
     "runtime~main.js.map": "/HW-29-react/static/js/runtime~main.11c54ce5.js.map",
-    "static/js/2.86ed2a48.chunk.js": "/HW-29-react/static/js/2.86ed2a48.chunk.js",
-    "static/js/2.86ed2a48.chunk.js.map": "/HW-29-react/static/js/2.86ed2a48.chunk.js.map",
+    "static/js/2.a930574c.chunk.js": "/HW-29-react/static/js/2.a930574c.chunk.js",
+    "static/js/2.a930574c.chunk.js.map": "/HW-29-react/static/js/2.a930574c.chunk.js.map",
     "index.html": "/HW-29-react/index.html",
-    "precache-manifest.39e0e5f5cafc3c7223f05c29006c7269.js": "/HW-29-react/precache-manifest.39e0e5f5cafc3c7223f05c29006c7269.js",
+    "precache-manifest.0fc5d39291018fc05d6a75d870a87501.js": "/HW-29-react/precache-manifest.0fc5d39291018fc05d6a75d870a87501.js",
     "service-worker.js": "/HW-29-react/service-worker.js",
-    "static/css/main.b30d6352.chunk.css.map": "/HW-29-react/static/css/main.b30d6352.chunk.css.map"
+    "static/css/main.710878bc.chunk.css.map": "/HW-29-react/static/css/main.710878bc.chunk.css.map"
   }
 }
