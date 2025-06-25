@@ -1,13 +1,20 @@
 import React from 'react';
 import './App.css';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact, delContact } from './redux/contactsSlice';
+import { addContact, deleteContact, fetchContacts } from './redux/contactsSlice';
+
 import { setFilter } from './redux/filterSlice';
 
 function App() {
-  const contacts = useSelector(state => state.contacts);
+const contacts = useSelector(state => state.contacts.items);
+
   const filter = useSelector(state => state.filter);
   const dispatch = useDispatch();
+
+    useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
 
   const add = e => {
     e.preventDefault();
@@ -18,11 +25,11 @@ function App() {
     e.target.reset();
   };
 
-  const del = e => {
-    e.preventDefault();
-    dispatch(delContact(e.target.elements.delID.value));
-    e.target.reset();
-  };
+ const del = e => {
+  e.preventDefault();
+  dispatch(deleteContact(e.target.elements.delID.value));
+  e.target.reset();
+};
 
   const filt = e => {
     dispatch(setFilter(e.target.value));
