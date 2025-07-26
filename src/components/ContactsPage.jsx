@@ -171,7 +171,7 @@ const ContactsPage = () => {
       <Filter filter={filter} onSetFilter={handleSetFilter} />
 
       {isLoading && !error && <p className="loading-message">Завантаження контактів...</p>}
-      {error && <p className="error-message">Error: {error}</p>}
+      {/* {error && <p className="error-message">Error: {error}</p>} */}
       {!isLoading && !error && contacts.length === 0 && <p>Контактів не знайдено.</p>}
       
       {/* Отображаем список только если есть отфильтрованные контакты */}

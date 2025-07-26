@@ -58,7 +58,7 @@ const RegisterPage = () => {
           {isLoading ? 'Реєстрація...' : 'Зареєструватися'}
         </button>
       </form>
-      {error && <p className="error-message">Error: {error}</p>} 
+      {/* {error && <p className="error-message">Error: {error}</p>}  */}
     </div>
   );
 };
