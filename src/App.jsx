@@ -1,75 +1,53 @@
 import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'; 
 import './App.css';
+import RegisterPage from './components/RegisterPage'; 
+import LoginPage from './components/LoginPage';
+import ContactsPage from './components/ContactsPage';
+import Navigation from './components/Navigation'; 
+import PrivateRoute from './components/PrivateRoute'; 
+import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  selectFilteredContacts,
-  selectIsLoading,
-  selectError,
-} from './redux/selectors';
+import { refreshUser } from './redux/authSlice';
+import { selectIsLoggedIn, selectAuthLoading } from './redux/selectors';
 
-import { addContact, deleteContact, fetchContacts } from './redux/contactsSlice';
-
-import { setFilter } from './redux/filterSlice';
 
 function App() {
-const contacts = useSelector(selectFilteredContacts);
-const isLoading = useSelector(selectIsLoading);
-const error = useSelector(selectError);
   const dispatch = useDispatch();
+  const isLoggedIn = useSelector(selectIsLoggedIn);
+  const isRefreshing = useSelector(selectAuthLoading);
 
-    useEffect(() => {
-    dispatch(fetchContacts());
+  useEffect(() => {
+    dispatch(refreshUser());
   }, [dispatch]);
 
-  const add = e => {
-    e.preventDefault();
-    dispatch(addContact({
-      name: e.target.elements.inputname.value,
-      number: e.target.elements.inputnumber.value
-    }));
-    e.target.reset();
-  };
-
- const del = e => {
-  e.preventDefault();
-  dispatch(deleteContact(e.target.elements.delID.value));
-  e.target.reset();
-};
-
-  const filt = e => {
-    dispatch(setFilter(e.target.value));
-  };
+  if (isRefreshing) {
+    return <p className="loading-message">Оновлення користувача...</p>;
+  }
 
   return (
-    <div className="container">
-      <h1>Contacts</h1>
-
-      <form onSubmit={add}>
-        <input required name="inputname" placeholder="Name" />
-        <input required name="inputnumber" placeholder="Number" pattern="^[^A-Za-z]*$" />
-        <button type="submit">Add Contact</button>
-      </form>
-
-      <form onSubmit={del}>
-        <input required name="delID" type="number" placeholder="ID" />
-        <button type="submit">Delete Contact</button>
-      </form>
-
-     <input
-  type="text"
-  placeholder="Filter"
-  onInput={filt}
-/>
-
-      <ul>
-  {contacts.map(x => (
-    <li key={x.id}>
-      <span className="id">#{x.id}</span> {x.name} <code>{x.number}</code>
-    </li>
-  ))}
-</ul>
-    </div>
+    <Router>
+      <Navigation />
+      
+      <div className="container">
+        <Routes>
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/contacts" element={
+            <PrivateRoute>
+              <ContactsPage />
+            </PrivateRoute>
+          } />
+          <Route path="/" element={
+            isLoggedIn ? (
+              <p>Ласкаво просимо! Перейти до <Link to="/contacts">контактів</Link></p> 
+            ) : (
+              <p>Ласкаво просимо! Перейдіть до <Link to="/register">реєстрації</Link> або <Link to="/login">увійдіть</Link>.</p> 
+            )
+          } />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 

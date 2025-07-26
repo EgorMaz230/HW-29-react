@@ -1,8 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-axios.defaults.baseURL = 'https://685bf45b89952852c2dba500.mockapi.io';
 
+// axios.defaults.baseURL = 'https://connections-api.goit.global/'; 
 
 export const fetchContacts = createAsyncThunk(
   'contacts/fetchAll',
@@ -81,13 +81,13 @@ const contactsSlice = createSlice({
       })
       .addCase(deleteContact.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.items = state.items.filter(x => x.id !== action.payload);
+        state.items = state.items.filter(contact => contact.id !== action.payload);
       })
       .addCase(deleteContact.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
       });
-  }
+  },
 });
 
 export default contactsSlice.reducer;
